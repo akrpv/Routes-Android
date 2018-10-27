@@ -24,18 +24,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -48,8 +36,6 @@ public class MainActivity extends AppCompatActivity //implements OnTaskCompleted
     CheckConnectionTask task;
     private String res;
     TextView txtString;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,24 +59,42 @@ public class MainActivity extends AppCompatActivity //implements OnTaskCompleted
         //TextView textView3;
         txtString = (TextView) findViewById(R.id.textView3);
 
-        OkHttpHandler okHttpHandler= new OkHttpHandler();//+
+        OkHttpHandler okHttpHandler= new OkHttpHandler(this);//+
         okHttpHandler.execute(url+"check-connection");//+
+
+//        if (txtString.getText().toString().equals("200")){
+//            Intent intent = new Intent(this,ChoiceAvtivity.class);
+//            startActivity(intent);
+//        }
 
 //         Intent intent = new Intent(this,MapsActivity.class);
 //        startActivity(intent);
 
     }
+    public void onClickButton2(View view){
+        Intent intent = new Intent(this,ChoiceAvtivity.class);
+          startActivity(intent);
+    }
+
     public class OkHttpHandler extends AsyncTask<String, Integer, String> {
 
         OkHttpClient client = new OkHttpClient();
+        MainActivity mainActivity;
 
+        public OkHttpHandler(MainActivity mainActivity) {
+            this.mainActivity = mainActivity;
+        }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             txtString.setText(s);
+            Intent intent = new Intent(mainActivity, ChoiceAvtivity.class);
+            startActivity(intent);
+
         }
 
+        //возварщает response
         @Override
         protected String doInBackground(String... params) {
 
@@ -100,7 +104,8 @@ public class MainActivity extends AppCompatActivity //implements OnTaskCompleted
 
             try {
                 Response response = client.newCall(request).execute();
-                return response.networkResponse().toString();//body().string();
+
+                return String.valueOf(response.networkResponse().code());
             }catch (Exception e){
                 e.printStackTrace();
             }
