@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "259652744059",
+    "firebase_url": "https://routes-1540657831960.firebaseio.com",
+    "project_id": "routes-1540657831960",
+    "storage_bucket": "routes-1540657831960.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259652744059:android:5db4a684f4829751",
+        "android_client_info": {
+          "package_name": "xxx_pro_team_crazy_guys.routes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259652744059-ts0t402e2e12g62dn2bf5q67j3idoftd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN8zdB1HoZDTqpPfxB_AD3fr2BVvKPy00"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
