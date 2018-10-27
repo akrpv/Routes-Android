@@ -8,6 +8,6 @@ public class ChoiceAvtivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choice_avtivity);//
+        setContentView(R.layout.choice_avtivity);
     }
 }
