@@ -26,7 +26,8 @@ class CheckConnectionTask extends AsyncTask<String, Void, JSONObject> {
 
         try {
 
-            String url = GlobalVars.url + "check-connection/";
+            //String url = GlobalVars.url + "check-connection/";
+            String url = "http://mail.ru";
             HttpRequestWithBody r = Unirest.post(url);
             HttpResponse<String> response = r
 //                    .header()
