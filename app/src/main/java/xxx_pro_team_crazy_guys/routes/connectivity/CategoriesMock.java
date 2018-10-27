@@ -8,8 +8,13 @@ public class CategoriesMock implements Categories {
 
     @Override
     public List<Category> getCategories() {
-        Category category1 = new Category(1, "1", 1);
-        Category category2 = new Category(2, "2", 2);
-        return Arrays.asList(category1, category2);
+        return Arrays.asList(
+                new Category(1, "Bar", 90),
+                new Category(2, "Cinema", 90),
+                new Category(3, "Museum", 120),
+                new Category(4, "Theatre", 120),
+                new Category(5, "Gallery", 90),
+                new Category(6, "Cafe", 40)
+        );
     }
 }
