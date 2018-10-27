@@ -44,7 +44,7 @@ import static xxx_pro_team_crazy_guys.routes.GlobalVars.url;
 
 public class MainActivity extends AppCompatActivity //implements OnTaskCompleted
 {
-    OkHttpClient client = new OkHttpClient();
+    OkHttpClient client = new OkHttpClient();//+
     CheckConnectionTask task;
     private String res;
     TextView txtString;
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity //implements OnTaskCompleted
         //TextView textView3;
         txtString = (TextView) findViewById(R.id.textView3);
 
-        OkHttpHandler okHttpHandler= new OkHttpHandler();
-        okHttpHandler.execute(url+"check-connection");
+        OkHttpHandler okHttpHandler= new OkHttpHandler();//+
+        okHttpHandler.execute(url+"check-connection");//+
 
 //         Intent intent = new Intent(this,MapsActivity.class);
 //        startActivity(intent);
