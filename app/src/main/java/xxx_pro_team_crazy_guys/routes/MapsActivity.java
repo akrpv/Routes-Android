@@ -21,6 +21,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.LatLng;
+import com.google.maps.model.PriceLevel;
 import com.google.maps.model.TravelMode;
 
 
@@ -48,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        places.add (new LatLng(GlobalVars.startX,GlobalVars.startY));
         for (Place place : GlobalVars.places){
             places.add(new LatLng(place.getX(),place.getY()));
         }
@@ -77,11 +78,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
         DirectionsResult result = null;
         try {
+            LatLng[] pls = new LatLng[places.size() - 2];
+            for (int i = 1; i <= pls.length ; i++) {
+                pls[i-1] = places.get(i);
+            }
             result = DirectionsApi.newRequest(geoApiContext)
                     .mode(TravelMode.WALKING)
                     .origin(places.get(0))
                     .destination(places.get(places.size() - 1))
-                    .waypoints(places.get(1), places.get(2)).await();
+                    .waypoints(pls).await();
         } catch (ApiException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

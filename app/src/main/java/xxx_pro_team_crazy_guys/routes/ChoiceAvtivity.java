@@ -89,7 +89,7 @@ public class ChoiceAvtivity extends AppCompatActivity {
     public void onClickButton4(View view){
 //        Intent intent = new Intent(this, MapsActivity.class);
 //        startActivity(intent);
-        String start = "59.9678976,30.3218688";
+        String start = String.valueOf(GlobalVars.startX) + "," + String.valueOf(GlobalVars.startY);
         EditText editer = (EditText) findViewById(R.id.editText);
         String time = editer.getText().toString();
         String categories = "";
