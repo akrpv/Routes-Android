@@ -1,6 +1,7 @@
 package xxx_pro_team_crazy_guys.routes;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +11,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import xxx_pro_team_crazy_guys.routes.connectivity.Categories;
 import xxx_pro_team_crazy_guys.routes.connectivity.CategoriesMock;
 import xxx_pro_team_crazy_guys.routes.dto.Category;
 
 public class ChoiceAvtivity extends AppCompatActivity {
     private final Categories categories = new CategoriesMock();
+
+    OkHttpClient client = new OkHttpClient();
+
+    private String res;
+    TextView txtString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +62,7 @@ public class ChoiceAvtivity extends AppCompatActivity {
 //        }
 
     }
-    public void onClickButton4(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-    }
+
     public void onClickButton3(View view){
         GlobalVars.changePointsNumber(1);
         if (GlobalVars.pointsNumber==3){
@@ -72,4 +78,54 @@ public class ChoiceAvtivity extends AppCompatActivity {
             spinner4.setVisibility(View.VISIBLE);
         }
     }
+
+    public void onClickButton4(View view){
+//        Intent intent = new Intent(this, MapsActivity.class);
+//        startActivity(intent);
+        String start = "59.9678976,30.3218688";
+
+
+
+        OkHttpHandler okHttpHandler= new OkHttpHandler(this);
+        okHttpHandler.execute(GlobalVars.url+"check-connection");
+    }
+
+    public class OkHttpHandler extends AsyncTask<String, Integer, String> {
+
+        OkHttpClient client = new OkHttpClient();
+        ChoiceAvtivity choiceAvtivity;
+
+        public OkHttpHandler(ChoiceAvtivity choiceAvtivity) {
+            this.choiceAvtivity = choiceAvtivity;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //txtString.setText(s);
+            //Intent intent = new Intent(choiceAvtivity, ChoiceAvtivity.class);
+            //startActivity(intent);
+
+        }
+
+        //возварщает response
+        @Override
+        protected String doInBackground(String... params) {
+
+            Request.Builder builder = new Request.Builder();
+            builder.url(params[0]);
+            Request request = builder.build();
+
+            try {
+                Response response = client.newCall(request).execute();
+
+                return String.valueOf(response.networkResponse().code());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+
 }
