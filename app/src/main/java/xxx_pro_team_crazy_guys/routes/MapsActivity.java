@@ -1,20 +1,13 @@
 package xxx_pro_team_crazy_guys.routes;
 
-
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Cap;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -22,47 +15,30 @@ import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.LatLng;
-import com.google.maps.model.PriceLevel;
 import com.google.maps.model.TravelMode;
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import xxx_pro_team_crazy_guys.routes.dto.Place;
 
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
 
     private List<LatLng> places = new ArrayList<>();
     private GoogleMap mMap;
     private int width;
-
     private String mapsApiKey = "AIzaSyAuZwKDCKJivynUl8yh3zx1A_W0aT1pBOA";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         places.add (new LatLng(GlobalVars.startX,GlobalVars.startY));
         for (Place place : GlobalVars.places){
             places.add(new LatLng(place.getX(),place.getY()));
         }
-
-//        places.add(new LatLng(55.754724, 37.621380));
-//        places.add(new LatLng(55.760133, 37.618697));
-//        places.add(new LatLng(55.764753, 37.591313));
-//        places.add(new LatLng(55.728466, 37.604155));
-
-        //mapsApiKey = this.getResources().getString(R.string.google_maps_key);
         width = getResources().getDisplayMetrics().widthPixels;
     }
 
@@ -75,16 +51,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Start").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
             } else if (i == places.size()-1){
                 markers[i] = new MarkerOptions()
-                        .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Finish");
+                        .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Finish").snippet(GlobalVars.places.get(i - 1).getName());
             }else {
                 markers[i] = new MarkerOptions()
-                        .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Place " + i);
+                        .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Place " + i).snippet(GlobalVars.places.get(i - 1).getName());
             }
                 googleMap.addMarker(markers[i]);
-
         }
-
-
         GeoApiContext geoApiContext = new GeoApiContext.Builder()
                 .apiKey(mapsApiKey)
                 .build();
