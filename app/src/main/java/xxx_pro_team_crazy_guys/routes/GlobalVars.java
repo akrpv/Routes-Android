@@ -5,9 +5,9 @@ package xxx_pro_team_crazy_guys.routes;
  */
 
 public class GlobalVars {
-    public static String url = "http://192.168.43.52:8080/";
-    public int pointsNumber = 2;
-    public void changePointsNumber(int n){
+    public static String url = "http://192.168.137.1:8080/";
+    public static int pointsNumber = 2;
+    public static void changePointsNumber(int n){
         pointsNumber += n;
     }
 }

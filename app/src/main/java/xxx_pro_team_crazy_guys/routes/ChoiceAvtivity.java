@@ -1,7 +1,9 @@
 package xxx_pro_team_crazy_guys.routes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,5 +52,17 @@ public class ChoiceAvtivity extends AppCompatActivity {
 //            cat
 //        }
 
+    }
+    public void onClickButton4(View view){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+    public void onClickButton3(View view){
+        GlobalVars.changePointsNumber(1);
+        if (GlobalVars.pointsNumber==3){
+            Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+            spinner2.setVisibility();
+
+        }
     }
 }
