@@ -72,6 +72,8 @@ public class ChoiceAvtivity extends AppCompatActivity {
 
     public void onClickButton3(View view){
         GlobalVars.changePointsNumber(1);
+        //TextView tt = (TextView) findViewById(R.id.textView);
+        //tt.setText(String.valueOf(GlobalVars.pointsNumber).);
         if (GlobalVars.pointsNumber==3){
             Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
             spinner2.setVisibility(View.VISIBLE);
