@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import xxx_pro_team_crazy_guys.routes.dto.Place;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -47,10 +49,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        places.add(new LatLng(55.754724, 37.621380));
-        places.add(new LatLng(55.760133, 37.618697));
-        places.add(new LatLng(55.764753, 37.591313));
-        places.add(new LatLng(55.728466, 37.604155));
+        for (Place place : GlobalVars.places){
+            places.add(new LatLng(place.getX(),place.getY()));
+        }
+
+//        places.add(new LatLng(55.754724, 37.621380));
+//        places.add(new LatLng(55.760133, 37.618697));
+//        places.add(new LatLng(55.764753, 37.591313));
+//        places.add(new LatLng(55.728466, 37.604155));
 
         //mapsApiKey = this.getResources().getString(R.string.google_maps_key);
         width = getResources().getDisplayMetrics().widthPixels;

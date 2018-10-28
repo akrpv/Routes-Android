@@ -10,14 +10,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import xxx_pro_team_crazy_guys.routes.connectivity.Categories;
 import xxx_pro_team_crazy_guys.routes.connectivity.CategoriesMock;
 import xxx_pro_team_crazy_guys.routes.dto.Category;
+import xxx_pro_team_crazy_guys.routes.dto.Place;
 
 public class ChoiceAvtivity extends AppCompatActivity {
     private final Categories categories = new CategoriesMock();
@@ -144,10 +150,24 @@ public class ChoiceAvtivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            try {
+                JSONArray jsonArray = new JSONArray(s);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject place = jsonArray.getJSONObject(i);
+                    double x = place.getDouble("x");
+                    double y = place.getDouble("y");
+                    String name = place.getString("name");
+                    long categoryId = place.getLong("categoryId");
+                    int time = place.getInt("time");
+                    GlobalVars.places.add(new Place(categoryId, x, y, name, time));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             super.onPostExecute(s);
             //txtString.setText(s);
-            //Intent intent = new Intent(choiceAvtivity, ChoiceAvtivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(choiceAvtivity, MapsActivity.class);
+            startActivity(intent);
 
         }
 
@@ -160,9 +180,10 @@ public class ChoiceAvtivity extends AppCompatActivity {
             Request request = builder.build();
 
             try {
-                Response response = client.newCall(request).execute();
+                Call call = client.newCall(request);
+                Response response = call.execute();
 
-                return response.body().string();
+                return response.header("Data");
             }catch (Exception e){
                 e.printStackTrace();
             }
