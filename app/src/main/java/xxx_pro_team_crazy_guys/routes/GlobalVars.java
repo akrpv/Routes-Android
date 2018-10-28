@@ -16,6 +16,7 @@ public class GlobalVars {
         pointsNumber += n;
     }
     public static List<Place> places = new ArrayList<>();
-    public static double startX = 59.9678976;
-    public static double startY = 30.3218688;
+    public static double startX = 59.963648;
+    public static double startY = 30.320219;
+    // 59.963648, 30.320219
 }
