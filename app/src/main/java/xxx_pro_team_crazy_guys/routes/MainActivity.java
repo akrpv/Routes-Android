@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mashape.unirest.http.*;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity //implements OnTaskCompleted
         TextView myTextView3 = (TextView)findViewById(R.id.textView3);
         myTextView.setText(url);
 
+        //ImageView image = (ImageView) findViewById(R.id.imageView1);
+
+
     }
 
     //    public void onClickButton(View view){
@@ -71,10 +75,7 @@ public class MainActivity extends AppCompatActivity //implements OnTaskCompleted
 //        startActivity(intent);
 
     }
-    public void onClickButton2(View view){
-        Intent intent = new Intent(this,ChoiceAvtivity.class);
-        startActivity(intent);
-    }
+
 
     public class OkHttpHandler extends AsyncTask<String, Integer, String> {
 
