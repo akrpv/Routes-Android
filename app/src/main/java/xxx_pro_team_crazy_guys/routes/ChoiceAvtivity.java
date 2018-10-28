@@ -150,6 +150,7 @@ public class ChoiceAvtivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            GlobalVars.places.clear();
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
