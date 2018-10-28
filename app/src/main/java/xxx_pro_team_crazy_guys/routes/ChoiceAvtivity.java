@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -83,11 +84,53 @@ public class ChoiceAvtivity extends AppCompatActivity {
 //        Intent intent = new Intent(this, MapsActivity.class);
 //        startActivity(intent);
         String start = "59.9678976,30.3218688";
+        EditText editer = (EditText) findViewById(R.id.editText);
+        String time = editer.getText().toString();
+        String categories = "";
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
+        Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+        Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
+        Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
+        if (spinner.getVisibility() == View.VISIBLE) {
+            categories += getCategoryId(spinner.getSelectedItem().toString());
+        }
+        if (spinner1.getVisibility() == View.VISIBLE) {
+            categories += "," + getCategoryId(spinner1.getSelectedItem().toString());
+        }
+        if (spinner2.getVisibility() == View.VISIBLE) {
+            categories += "," + getCategoryId(spinner2.getSelectedItem().toString());
+        }
+        if (spinner3.getVisibility() == View.VISIBLE) {
+            categories += "," + getCategoryId(spinner3.getSelectedItem().toString());
+        }
+        if (spinner4.getVisibility() == View.VISIBLE) {
+            categories += "," + getCategoryId(spinner4.getSelectedItem().toString());
+        }
 
 
 
         OkHttpHandler okHttpHandler= new OkHttpHandler(this);
-        okHttpHandler.execute(GlobalVars.url+"check-connection");
+        okHttpHandler.execute(GlobalVars.url + "route-points?time=" + time + "&start=" + start + "&categoryIds=" + categories);
+    }
+
+    private int getCategoryId(String name) {
+        switch (name) {
+            case "Bar":
+                return 1;
+            case "Cinema":
+                return 2;
+            case "Museum":
+                return 3;
+            case "Theatre":
+                return 4;
+            case "Gallery":
+                return 5;
+            case "Cafe":
+                return 6;
+            default:
+                return 0;
+        }
     }
 
     public class OkHttpHandler extends AsyncTask<String, Integer, String> {
@@ -119,7 +162,7 @@ public class ChoiceAvtivity extends AppCompatActivity {
             try {
                 Response response = client.newCall(request).execute();
 
-                return String.valueOf(response.networkResponse().code());
+                return response.body().string();
             }catch (Exception e){
                 e.printStackTrace();
             }
