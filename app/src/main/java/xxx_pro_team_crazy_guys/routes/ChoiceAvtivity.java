@@ -61,8 +61,15 @@ public class ChoiceAvtivity extends AppCompatActivity {
         GlobalVars.changePointsNumber(1);
         if (GlobalVars.pointsNumber==3){
             Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
-            spinner2.setVisibility();
-
+            spinner2.setVisibility(View.VISIBLE);
+        }
+        if (GlobalVars.pointsNumber==4){
+            Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
+            spinner3.setVisibility(View.VISIBLE);
+        }
+        if (GlobalVars.pointsNumber==5){
+            Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
+            spinner4.setVisibility(View.VISIBLE);
         }
     }
 }
