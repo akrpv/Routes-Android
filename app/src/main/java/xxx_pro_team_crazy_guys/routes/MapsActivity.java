@@ -12,6 +12,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -67,9 +69,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         MarkerOptions[] markers = new MarkerOptions[places.size()];
         for (int i = 0; i < places.size(); i++) {
-            markers[i] = new MarkerOptions()
-                    .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng));
-            googleMap.addMarker(markers[i]);
+            if (i==0){
+                markers[i] = new MarkerOptions()
+                        .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Start").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+            } else if (i == places.size()-1){
+                markers[i] = new MarkerOptions()
+                        .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Finish");
+            }else {
+                markers[i] = new MarkerOptions()
+                        .position(new com.google.android.gms.maps.model.LatLng(places.get(i).lat, places.get(i).lng)).title("Place " + i);
+            }
+                googleMap.addMarker(markers[i]);
+
         }
 
 
